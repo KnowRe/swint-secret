@@ -19,7 +19,7 @@ describe('secret', function() {
 				localDir: path.join(__dirname, '../test_case'),
 				deleteRemoved: true,
 				s3Params: {
-					Bucket: 'swint-secret',
+					Bucket: cred.bucket,
 					Prefix: ''
 				}
 			};
