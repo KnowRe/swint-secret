@@ -6,6 +6,8 @@ var s3 = require('s3'),
 	swintSecret = require('../lib');
 
 describe('secret', function() {
+	this.timeout(10000);
+
 	before(function(done) {
 		var credPath = path.join(process.env.HOME, '.swint', 'swint-secret-test.json'),
 			cred = JSON.parse(fs.readFileSync(credPath)),
