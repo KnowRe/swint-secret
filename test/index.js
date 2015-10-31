@@ -12,8 +12,20 @@ describe('secret', function() {
 
 	before(function(done) {
 		var credPath = path.join(process.env.HOME, '.swint', 'swint-secret-test.json'),
-			cred = JSON.parse(fs.readFileSync(credPath)),
-			client = s3.createClient({
+			cred;
+
+		try {
+			fs.accessSync(credPath);
+			cred = JSON.parse(fs.readFileSync(credPath));
+		} catch(e) {
+			cred = {
+				id: process.env.SWINT_SECRET_TEST_ID,
+				secret: process.env.SWINT_SECRET_TEST_SECRET,
+				bucket: process.env.SWINT_SECRET_TEST_BUCKET
+			};
+		}
+
+		var client = s3.createClient({
 				s3Options: {
 					accessKeyId: cred.id,
 					secretAccessKey: cred.secret
@@ -122,8 +134,20 @@ describe('secret', function() {
 
 	after(function(done) {
 		var credPath = path.join(process.env.HOME, '.swint', 'swint-secret-test.json'),
-			cred = JSON.parse(fs.readFileSync(credPath)),
-			client = s3.createClient({
+			cred;
+
+		try {
+			fs.accessSync(credPath);
+			cred = JSON.parse(fs.readFileSync(credPath));
+		} catch(e) {
+			cred = {
+				id: process.env.SWINT_SECRET_TEST_ID,
+				secret: process.env.SWINT_SECRET_TEST_SECRET,
+				bucket: process.env.SWINT_SECRET_TEST_BUCKET
+			};
+		}
+
+		var client = s3.createClient({
 				s3Options: {
 					accessKeyId: cred.id,
 					secretAccessKey: cred.secret
