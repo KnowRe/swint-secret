@@ -9,13 +9,14 @@ $ npm install --save swint-secret
 ```
 
 ## Preparation
-You may save your secret credentials at `$HOME/.swint/aws.json` in the format below:
+* You may save your secret credentials at `$HOME/.swint/aws.json` in the format below:
 ```json
 {
 	"id": "ADJFNAIAMYAWSID",
 	"secret": "DEJNARGMKAJENVADMMYAWSSECRET"
 }
 ```
+* Or, you can set variables with key `SWINT_SECRET_ID`, `SWINT_SECRET_SECRET` pair.
 
 ## Testing
 You may save your secret credentials for the test at `$HOME/.swint/swint-secret-test.json` in the format below:
