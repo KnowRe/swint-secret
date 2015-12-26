@@ -16,7 +16,7 @@ $ npm install --save swint-secret
 	"secret": "DEJNARGMKAJENVADMMYAWSSECRET"
 }
 ```
-* Or, you can set variables with key `SWINT_SECRET_ID`, `SWINT_SECRET_SECRET` pair.
+* Or, you can set variables with key `SWINT_SECRET_KEY`, `SWINT_SECRET_SECRET` pair.
 
 ## Testing
 You may save your secret credentials for the test at `$HOME/.swint/swint-secret-test.json` in the format below:
