@@ -9,6 +9,7 @@ global.swintVar.printLevel = 5;
 
 describe('secret', function() {
 	this.timeout(10000);
+	var randKey = String(Math.floor(Math.random() * 10000000));
 
 	before(function(done) {
 		var credPath = path.join(process.env.HOME, '.swint', 'swint-secret-test.json'),
@@ -36,11 +37,11 @@ describe('secret', function() {
 				deleteRemoved: true,
 				s3Params: {
 					Bucket: cred.bucket,
-					Prefix: ''
+					Prefix: randKey + '/'
 				}
 			};
 
-		fs.mkdirSync(path.join(os.tmpDir(), 'swint-secret-empty'));
+		fs.mkdirSync(path.join(os.tmpDir(), 'swint-secret-empty' + randKey));
 
 		var uploader = client.uploadDir(params);
 
@@ -104,11 +105,11 @@ describe('secret', function() {
 		var ss = new swintSecret({
 			bucket: 'swint-secret',
 			paths: {
-				a: 'aaa',
-				b: 'bbb',
+				a: randKey + '/' + 'aaa',
+				b: randKey + '/' + 'bbb',
 				c: {
-					d: ['ddd1', 'ddd2', 'ddd3'],
-					e: 'eee'
+					d: [randKey + '/' + 'ddd1', randKey + '/' + 'ddd2', randKey + '/' + 'ddd3'],
+					e: randKey + '/' + 'eee'
 				}
 			}
 		});
@@ -154,11 +155,11 @@ describe('secret', function() {
 				}
 			}),
 			params = {
-				localDir: path.join(os.tmpDir(), 'swint-secret-empty'),
+				localDir: path.join(os.tmpDir(), 'swint-secret-empty' + randKey),
 				deleteRemoved: true,
 				s3Params: {
 					Bucket: 'swint-secret',
-					Prefix: ''
+					Prefix: randKey + '/'
 				}
 			};
 
@@ -170,7 +171,7 @@ describe('secret', function() {
 		});
 
 		uploader.on('end', function() {
-			fs.rmdirSync(path.join(os.tmpDir(), 'swint-secret-empty'));
+			fs.rmdirSync(path.join(os.tmpDir(), 'swint-secret-empty' + randKey));
 			done();
 		});
 	});
