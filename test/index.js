@@ -8,7 +8,7 @@ var s3 = require('s3'),
 global.swintVar.printLevel = 5;
 
 describe('secret', function() {
-	this.timeout(10000);
+	this.timeout(100000);
 	var randKey = String(Math.floor(Math.random() * 10000000));
 
 	before(function(done) {
@@ -114,23 +114,25 @@ describe('secret', function() {
 			}
 		});
 
-		ss.ready(function(err, res) {
-			if(err) {
-				print(4, err);
-				process.exit(-1);
-			}
-
-			assert.deepEqual(res, {
-				a: 'AAA',
-				b: 'BBB',
-				c: {
-					d: ['DDD1', 'DDD2', 'DDD3'],
-					e: 'EEE'
+		setTimeout(function() {
+			ss.ready(function(err, res) {
+				if(err) {
+					print(4, err);
+					process.exit(-1);
 				}
-			});
 
-			done();
-		});
+				assert.deepEqual(res, {
+					a: 'AAA',
+					b: 'BBB',
+					c: {
+						d: ['DDD1', 'DDD2', 'DDD3'],
+						e: 'EEE'
+					}
+				});
+
+				done();
+			});
+		}, Math.random() * 30000);
 	});
 
 	after(function(done) {
