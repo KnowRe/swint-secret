@@ -31,7 +31,7 @@
     "swint-helper": "1.x"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": "2.4.5",
     "eslint": "*"
   }
 }
