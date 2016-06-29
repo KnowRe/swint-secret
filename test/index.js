@@ -1,8 +1,11 @@
-var s3 = require('s3'),
+var aws = require('aws-sdk'),
 	path = require('path'),
 	fs = require('fs'),
 	os = require('os'),
 	assert = require('assert'),
+	async = require('async'),
+	swintHelper = require('swint-helper'),
+	swintS3Upload = require('swint-s3upload'),
 	swintSecret = require('../lib');
 
 global.swintVar.printLevel = 5;
@@ -26,31 +29,20 @@ describe('secret', function() {
 			};
 		}
 
-		var client = s3.createClient({
-				s3Options: {
-					accessKeyId: cred.key,
-					secretAccessKey: cred.secret
-				}
-			}),
-			params = {
-				localDir: path.join(__dirname, '../test_case'),
-				deleteRemoved: true,
-				s3Params: {
-					Bucket: cred.bucket,
-					Prefix: randKey + '/'
-				}
-			};
+		swintS3Upload({
+			inDir: path.join(__dirname, '../test_case'),
+			outDir: randKey,
+			s3Info: {
+				key: cred.key,
+				secret: cred.secret,
+				bucket: cred.bucket
+			}
+		}, function(err, res) {
+			if (err) {
+				print(4, err);
+				return;
+			}
 
-		fs.mkdirSync(path.join(os.tmpDir(), 'swint-secret-empty' + randKey));
-
-		var uploader = client.uploadDir(params);
-
-		uploader.on('error', function(err) {
-			print(4, err);
-			process.exit(-1);
-		});
-
-		uploader.on('end', function() {
 			done();
 		});
 	});
@@ -150,31 +142,28 @@ describe('secret', function() {
 			};
 		}
 
-		var client = s3.createClient({
-				s3Options: {
-					accessKeyId: cred.key,
-					secretAccessKey: cred.secret
-				}
+		var files = swintHelper.walk({
+				dir: path.join(__dirname, '../test_case')
 			}),
-			params = {
-				localDir: path.join(os.tmpDir(), 'swint-secret-empty' + randKey),
-				deleteRemoved: true,
-				s3Params: {
-					Bucket: 'swint-secret',
-					Prefix: randKey + '/'
-				}
-			};
+			client = new aws.S3({
+				accessKeyId: cred.key,
+				secretAccessKey: cred.secret
+			});
 
-		var uploader = client.uploadDir(params);
-
-		uploader.on('error', function(err) {
-			print(4, err);
-			process.exit(-1);
-		});
-
-		uploader.on('end', function() {
-			fs.rmdirSync(path.join(os.tmpDir(), 'swint-secret-empty' + randKey));
-			done();
-		});
+		async.parallel(
+			files.map(function(f) {
+				return function(cb) {
+					client.deleteObject({
+						Bucket: 'swint-secret',
+						Key: randKey + '/' + f.replace(path.join(__dirname, '../test_case') + path.sep, '').replace('\\', '/')
+					}, function(err) {
+						cb(null, true);
+					})
+				};
+			}),
+			function(err, res) {
+				done();
+			}
+		);
 	});
 });

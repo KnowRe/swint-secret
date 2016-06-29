@@ -26,12 +26,13 @@
   },
   "homepage": "https://github.com/KnowRe-Dev/swint-secret",
   "dependencies": {
-    "async": "^2.0.0-rc.5",
-    "s3": "^4.4.0",
+    "async": "^2.0.0-rc.6",
+    "aws-sdk": "^2.4.3",
     "swint-helper": "1.x"
   },
   "devDependencies": {
     "mocha": "^2.5.3",
-    "eslint": "^2.11.1"
+    "eslint": "^2.11.1",
+    "swint-s3upload": "^1.0.6"
   }
 }
