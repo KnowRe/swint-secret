@@ -1,4 +1,6 @@
 # swint-secret
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Knowre-Dev/swint-secret.svg)](https://greenkeeper.io/)
 Secret string manager for Swint. Save your secret strings in Amazon S3 and avoid accidental commitment of secret strings!
 
 **Warning: This is not the final draft yet, so do not use this until its official version is launched**
