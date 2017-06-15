@@ -27,7 +27,7 @@
   "homepage": "https://github.com/KnowRe-Dev/swint-secret",
   "dependencies": {
     "async": "2.4.1",
-    "aws-sdk": "2.70.0",
+    "aws-sdk": "2.71.0",
     "swint-helper": "1.2.5"
   },
   "devDependencies": {
