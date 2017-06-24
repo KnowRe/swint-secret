@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "mocha": "3.4.2",
-    "eslint": "4.0.0",
+    "eslint": "4.1.0",
     "swint-s3upload": "1.1.7"
   }
 }
