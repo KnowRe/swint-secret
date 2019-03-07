@@ -1,6 +1,6 @@
 {
   "name": "swint-secret",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Secret string manager for Swint",
   "main": "lib/index.js",
   "scripts": {

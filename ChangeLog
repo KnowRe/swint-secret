@@ -1,3 +1,9 @@
+2019.03.07, Version 1.0.14
+ * Fix: node_js type on .travis.yml
+ * Fix: update env secure key
+ * Upgrade: Upgraded node version & dependencies
+ * Build: update travis env & secure key
+
 2017.12.06, Version 1.0.13
  * Upgrade: Upgraded node version & dependencies
 
