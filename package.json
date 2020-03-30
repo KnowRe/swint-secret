@@ -1,6 +1,6 @@
 {
   "name": "swint-secret",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Secret string manager for Swint",
   "main": "lib/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "dependencies": {
     "async": "2.6.2",
     "aws-sdk": "2.415.0",
-    "swint-helper": "1.2.10"
+    "swint-helper": "1.2.11"
   },
   "devDependencies": {
     "mocha": "6.0.2",
